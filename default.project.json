@@ -1,0 +1,12 @@
+{
+  "name": "roblox-beatclock",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "BeatClock": {
+        "$path": "src/BeatClock.lua"
+      }
+    }
+  }
+}
