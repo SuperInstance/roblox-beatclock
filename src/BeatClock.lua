@@ -55,7 +55,7 @@ BeatClock.startTime = 0
                          Defaults to 72 (Andante).
 ]]
 function BeatClock.init(bpm: number?)
-    BeatClock.bpm = bpm or DEFAULT_BPM
+    BeatClock.bpm = (typeof(bpm) == "number" and bpm > 0) and bpm or DEFAULT_BPM
     BeatClock.startTick = 0
     BeatClock.startTime = os.clock()
 end
@@ -193,6 +193,43 @@ end
 ]]
 function BeatClock.get32ndNoteDuration(): number
     return 60.0 / (BeatClock.bpm * 8)
+end
+
+-- ============================================================
+--  Helpers
+-- ============================================================
+
+--[[
+    Check whether the current tick falls exactly on a beat boundary.
+    Useful for scheduling gameplay events that should fire on the beat.
+
+    @return boolean — true if current tick is a multiple of ticksPerBeat.
+]]
+function BeatClock.isOnBeat(): boolean
+    return BeatClock.getCurrentTick() % BeatClock.ticksPerBeat == 0
+end
+
+--[[
+    Current measure position (1 measure = 4 beats).
+    Whole numbers are measure boundaries. The fractional part
+    represents position within the measure.
+
+    Example: beat 6.0 → measure 1.5 (middle of measure 2).
+
+    @return number — measure position (float).
+]]
+function BeatClock.getCurrentMeasure(): number
+    return BeatClock.getCurrentBeat() / 4
+end
+
+--[[
+    Reset the clock to tick 0 at the current tempo.
+    Equivalent to calling init() with the current BPM, but
+    without changing tempo.
+]]
+function BeatClock.reset()
+    BeatClock.startTick = 0
+    BeatClock.startTime = os.clock()
 end
 
 return BeatClock
