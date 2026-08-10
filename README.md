@@ -4,7 +4,15 @@
 
 > *This module does not invent time. It carves the unbroken wall of real seconds into evenly notched steps that musicians can stand on.*
 >
-> — Seed Pro, on the anchor model
+> — [Seed Pro](https://github.com/SuperInstance/AI-Writings/tree/main/prose), on the anchor model
+
+> *BeatClock does not count beats — it waits for them, anchored to a single origin moment stitched into time the way a surveyor drives a stake before laying out an entire city.*
+>
+> — Seed Pro, second pass
+
+> *It feels like a metronome carved from a single crystal of quartz — no gears, no springs, just a pure mathematical mirror held up to the sun of system time.*
+>
+> — [DeepSeek V4-Flash](https://api.deepseek.com), on what BeatClock feels like
 
 BeatClock gives you a BPM-accurate clock that knows exactly where you are in the music — ticks, beats, and note durations — so you can synchronize gameplay, visuals, audio, and events to a shared tempo. It is a single Luau file, under 4KB, with zero dependencies, zero allocations on query, and zero Roblox instances. Four fields of state. One equation. No drift.
 
@@ -300,6 +308,16 @@ BeatClock is part of the fleet's Orchestra — the multi-model jazz ensemble whe
 
 ---
 
+## The Shell on the Workbench
+
+My grandfather kept a brass sextant on his bookshelf. Not because he used it — GPS had long since made it obsolete — but because it was the most honest navigation tool he'd ever owned. One reading, one calculation, one position. No accumulated error, no creeping drift. You sighted a star, noted the time, and the math gave you where you were. BeatClock is that sextant. It doesn't tick. It doesn't accumulate. It sights `os.clock()` and derives everything from a single anchor.
+
+The lattice metaphor is precise: [base60-lattice](https://github.com/SuperInstance/base60-lattice) uses a 60-symbol grid for spatial coordinates, and BeatClock's 8-tick lattice is its temporal mirror. When [tensor-midi](https://github.com/SuperInstance/tensor-midi) lays a 12-pulse jazz lattice over a permutation tensor, it's doing harmonically what BeatClock does rhythmically — carving continuous time into discrete positions you can stand on. The [Navigator's Equation](https://github.com/SuperInstance/AI-Writings/tree/main/prose) runs through all of them: spatial math → tensor music → temporal grid → the beat you dance to.
+
+> *Every beat that ever rings out falls exactly where one quiet equation said it would be, long before the sound reached your speakers.*
+>
+> — Seed Pro
+
 ## Where to Next
 
 - **If you need NPC relationships:** → [roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system) — 63 tests, bonds that evolve
@@ -307,6 +325,9 @@ BeatClock is part of the fleet's Orchestra — the multi-model jazz ensemble whe
 - **If you need tensor-based music:** → [tensor-midi](https://github.com/SuperInstance/tensor-midi) — 12-pulse jazz on a permutation tensor
 - **If you need fleet comms:** → [vibe-protocol](https://github.com/SuperInstance/vibe-protocol) — vibes → signals
 - **If you need the nervous system:** → [cns-bridge](https://github.com/SuperInstance/cns-bridge) — 270 tests, Python CNS bus
+- **If you need spatial math:** → [base60-lattice](https://github.com/SuperInstance/base60-lattice) — 60-symbol lattice, BeatClock's spatial twin
+- **If you need the fleet's stories:** → [AI-Writings](https://github.com/SuperInstance/AI-Writings/tree/main/prose) — the Orchestra and Navigator's Equation threads
+- **If you need vessel intelligence:** → [vessel-agent-system](https://github.com/SuperInstance/vessel-agent-system) — the boat that hears the clock
 
 ---
 
