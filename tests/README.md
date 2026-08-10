@@ -1,38 +1,31 @@
 # tests/ — BeatClock Test Suite
 
-> *Sea trials. Every plank stressed, every joint tested.*
+Tests run outside of Roblox Studio using the custom [TestKit](../testkit/init.lua) framework, which mocks `os.clock()`, `typeof()`, and the Roblox `game` global.
 
-## Test Files
+## Files
 
-| File | Framework | What It Covers |
-|------|-----------|----------------|
-| [`beatclock_test.lua`](beatclock_test.lua) | [TestKit](../testkit/init.lua) | Module structure, init, tick computation, BPM changes, beat detection, reset, measure tracking |
-| [`beatclock_extended_test.lua`](beatclock_extended_test.lua) | [TestKit](../testkit/init.lua) | Conversion round-trips, note durations, setBPM tick preservation, server sync, elapsed, isOnBeat, edge cases, API completeness |
+| File | Focus | Key Tests |
+|------|-------|-----------|
+| [`beatclock_test.lua`](./beatclock_test.lua) | Module structure, init, tick computation, BPM changes, beat detection, reset, measures | Default BPM fallback, tick advancement at different tempos, `isOnBeat()` booleans, `getCurrentMeasure()` |
+| [`beatclock_extended_test.lua`](./beatclock_extended_test.lua) | Conversions, note durations, tempo preservation, server sync, edge cases, API completeness | Round-trip `tick↔beat` conversion, `setBPM` tick continuity, NaN/zero/negative/string rejection, full API surface audit |
 
-## Running Tests
+## Running
 
 ```bash
 LUA_PATH="?.lua;testkit/?.lua;?/init.lua" lua5.1 tests/beatclock_test.lua
-LUA_PATH="?.lua;testkit/?.lua;?/init.lua" lua5.1 tests/beatclock_extended_test.lua
 ```
 
-## Testing Strategy
+## Strategy
 
-Tests mock `os.clock()` to control time deterministically:
+Tests mock `os.clock()` for deterministic timing — set the clock, advance it, assert the tick. No real-time delays, no flaky tests. The mock is a simple closure:
 
 ```lua
 local mockTime = 0
 os.clock = function() return mockTime end
-
-BeatClock.init(120)
-mockTime = 0.5  -- advance 500ms
--- At 120 BPM: tickDuration = 0.0625s → 8 ticks elapsed → beat 1.0
 ```
 
-This means we can test any tempo, any duration, any drift scenario — without waiting in real time.
-
-See also: [`spec/BeatClock_spec.lua`](../spec/BeatClock_spec.lua) for TestEZ-format tests.
+The spec file ([`spec/BeatClock_spec.lua`](../spec/BeatClock_spec.lua)) uses TestEZ-format assertions for Roblox-native test runners.
 
 ---
 
-[← Back to BeatClock](../README.md)
+← Back to [BeatClock](../README.md)

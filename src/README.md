@@ -1,30 +1,32 @@
 # src/ — BeatClock Source
 
-> *One file. One plank. One hull.*
+The entire module is a single file: [`BeatClock.lua`](./BeatClock.lua).
 
-This directory contains the entire BeatClock module — a single Luau file with zero dependencies.
+Under 4KB. Four fields of state. Fourteen functions. Zero dependencies.
 
-## Files
+## The Equation
 
-| File | Description |
-|------|-------------|
-| [`BeatClock.lua`](BeatClock.lua) | The complete module — ~130 lines, under 4 KB |
+```
+tick(now) = floor(tick₀ + (now - time₀) / (60 / (bpm × ticksPerBeat)))
+```
+
+Everything else — beats, measures, note durations, beat detection — is a lens over that single scalar.
 
 ## Architecture
 
-The module is a **singleton table** that doubles as its own state record:
+BeatClock is a **Mathematical Projection System**: one pure function `f(anchor, now) → tick` wrapped in a minimal mutable cell. The anchor `(tick₀, time₀, bpm)` only updates on authority events (`init`, `setBPM`, `syncFromServer`). Time progression never mutates state.
 
-```
-BeatClock.bpm           — current tempo
-BeatClock.ticksPerBeat  — constant: 8 (32nd-note resolution)
-BeatClock.startTick     — reference tick at anchor point
-BeatClock.startTime     — os.clock() reading at anchor point
-```
+### Key Invariants
 
-All queries derive from these four values. There are no closures, no metatables, no instances. The module table IS the ship.
+1. **Referential transparency** — `getCurrentTick()` at the same `os.clock()` always returns the same value
+2. **Anchor continuity** — `setBPM()` preserves the instantaneous tick (C⁰ continuity)
+3. **Monotonicity** — `tick₀` and `time₀` only increase
+4. **Authority isolation** — `syncFromServer()` overwrites the anchor atomically; no smoothing
 
-See the [Engineering Manual](../docs/engineering-manual.md) for the full architecture discussion.
+## Why `os.clock()`?
+
+Highest-resolution monotonic clock in Luau. Process-local. Not affected by NTP adjustments. ~microsecond precision. No network round-trip like `workspace:GetServerTimeNow()`.
 
 ---
 
-[← Back to BeatClock](../README.md)
+← Back to [BeatClock](../README.md)
