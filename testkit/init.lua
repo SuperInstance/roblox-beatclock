@@ -111,10 +111,49 @@ function testkit.loadModule(path)
     file:close()
     
     -- Strip Luau type annotations for Lua 5.1 compatibility
-    content = content:gsub("%s*:%s*%a+%??", "")       -- : type or : type?
-    content = content:gsub("%s*->%s*%a+", "")           -- -> type
-    content = content:gsub("(local%s+%w+)%s*:%s*%w+%s*=", "%1 =")  -- local x: type =
-    content = content:gsub("[^\n]*export type[^\n]+\n", "")
+    -- 1. Function params: (param: type) → (param)
+    -- Match simple types (number, string, Vector3?, etc.)
+    content = content:gsub("(%w+)%s*:%s*[%w%?]+%s*([,%)])", "%1%2")
+    -- Match brace types: (param: { ... }) — use balanced brace matching
+    content = content:gsub("(%w+)%s*:%s*%b{}%s*([,%)])", "%1%2")
+    -- 2. Function return types: ): type\n → )\n
+    content = content:gsub("%)%s*:%s*[^{%n]*%s*%c", ")\n")
+    content = content:gsub("%)%s*:%s*%b{}", ")")
+    -- 3. Local var with brace types: local x: { ... } = → local x =
+    local function stripBraceType(line)
+        if line:match("^%s*local%s+%w+%s*:") then
+            local s, e = line:find(":")
+            if s then
+                local before = line:sub(1, s-1)
+                local rest = line:sub(e+1)
+                local depth = 0
+                local i = 1
+                while i <= #rest do
+                    local c = rest:sub(i,i)
+                    if c == "{" then depth = depth + 1
+                    elseif c == "}" then depth = depth - 1
+                    elseif depth == 0 and c == "=" then
+                        return before .. rest:sub(i)
+                    elseif depth == 0 and c:match("[a-zA-Z]") then
+                        while i <= #rest and rest:sub(i,i):match("[%w%?]") do i = i + 1 end
+                        return before .. rest:sub(i)
+                    end
+                    i = i + 1
+                end
+            end
+        end
+        return line
+    end
+    local lines = {}
+    for line in content:gmatch("([^\n]*)\n?") do
+        line = stripBraceType(line)
+        -- Also strip return type annotations: ): type at end of line
+        line = line:gsub("(%))%s*:%s*[%w%?]+%s*$", "%1")
+        line = line:gsub("^export type.*", "")
+        line = line:gsub("^type%s+%w+%s*=.*", "")
+        table.insert(lines, line)
+    end
+    content = table.concat(lines, "\n")
     
     local fn, err = loadstring(content, path)
     if not fn then error("Failed to load module: " .. tostring(err), 2) end
@@ -149,6 +188,13 @@ end
 
 testkit.test = testkit.it
 
+-- ── Hooks (no-ops for compatibility) ───────────────────
+
+function testkit.beforeAll(fn) pcall(fn) end
+function testkit.afterAll(fn) pcall(fn) end
+function testkit.beforeEach(fn) pcall(fn) end
+function testkit.afterEach(fn) pcall(fn) end
+
 -- ── Summary ─────────────────────────────────────────────
 
 function testkit.summary()
@@ -167,11 +213,45 @@ if not typeof then
     end
 end
 
+-- ── Mock Roblox `game` global ────────────────────────────
+
+if not game then
+    local function mockSignal()
+        return { Connect = function(self, fn) return {Disconnect = function() end} end }
+    end
+    local mockPlayers = {
+        PlayerAdded = mockSignal(),
+        PlayerRemoving = mockSignal(),
+        Players = {},
+    }
+    local mockReplicatedStorage = {
+        WaitForChild = function(self, name) return self end,
+    }
+    local services = {
+        Players = mockPlayers,
+        ReplicatedStorage = mockReplicatedStorage,
+        RunService = { Heartbeat = mockSignal(), RenderStepped = mockSignal() },
+    }
+    _G.game = setmetatable({}, {
+        __index = function(t, k)
+            if k == "GetService" then
+                return function(self, name) return services[name] or {} end
+            end
+            return services[k] or {}
+        end
+    })
+    _G.Players = mockPlayers
+end
+
 -- ── Expose globally ─────────────────────────────────────
 
 _G.expect = expect
 _G.describe = testkit.describe
 _G.it = testkit.it
 _G.test = testkit.test
+_G.beforeAll = testkit.beforeAll
+_G.afterAll = testkit.afterAll
+_G.beforeEach = testkit.beforeEach
+_G.afterEach = testkit.afterEach
 
 return testkit
