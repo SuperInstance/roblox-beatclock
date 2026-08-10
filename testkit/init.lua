@@ -119,6 +119,8 @@ function testkit.loadModule(path)
     -- 2. Function return types: ): type\n → )\n
     content = content:gsub("%)%s*:%s*[^{%n]*%s*%c", ")\n")
     content = content:gsub("%)%s*:%s*%b{}", ")")
+    -- Handle parenthesized multi-return types: ): (type1, type2)
+    content = content:gsub("%)%s*:%s*%b()", ")")
     -- 3. Local var with brace types: local x: { ... } = → local x =
     local function stripBraceType(line)
         if line:match("^%s*local%s+%w+%s*:") then
