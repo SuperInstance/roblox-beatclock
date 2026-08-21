@@ -291,7 +291,7 @@ LUA_PATH="?.lua;testkit/?.lua;?/init.lua" lua5.1 tests/beatclock_test.lua
 
 BeatClock is the temporal lattice of the [SuperInstance](https://github.com/SuperInstance) Roblox layer. It connects to:
 
-- 🎵 **[tensor-midi](https://github.com/SuperInstance/tensor-midi)** — Tensor-based MIDI on a 12-pulse jazz lattice. BeatClock's 8-tick pop lattice is its straight-laced cousin.
+- 🎵 **[fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi)** — Tensor-based MIDI on a 12-pulse jazz lattice. BeatClock's 8-tick pop lattice is its straight-laced cousin.
 - 🤝 **[roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system)** — NPC relationships have rhythm. Bonds pulse on intervals; BeatClock provides the grid.
 - 🛡️ **[roblox-filtergate](https://github.com/SuperInstance/roblox-filtergate)** — Content filtering for kid-safe experiences. The filter and the clock share a fleet.
 - 🌊 **[vibe-protocol](https://github.com/SuperInstance/vibe-protocol)** — Vibes become signals. A vibe has a tempo; BeatClock is the clock those signals ride on.
@@ -304,7 +304,7 @@ BeatClock is the temporal lattice of the [SuperInstance](https://github.com/Supe
 
 BeatClock is part of the fleet's Orchestra — the multi-model jazz ensemble where timing IS music. The conductor doesn't wave a baton; they call `setBPM()`. Every player reads the same clock, and the music emerges from the lattice.
 
-> *See also:* [The Navigator's Equation](https://github.com/SuperInstance/AI-Writings/tree/main/prose) — how base60-lattice, log-tensor, tensor-midi, and BeatClock form a mathematical pipeline from spatial coordinates to musical time.
+> *See also:* [The Navigator's Equation](https://github.com/SuperInstance/AI-Writings/tree/main/prose) — how base60-lattice, murmur, fleet-jepa-midi, and BeatClock form a mathematical pipeline from spatial coordinates to musical time.
 
 ---
 
@@ -312,7 +312,7 @@ BeatClock is part of the fleet's Orchestra — the multi-model jazz ensemble whe
 
 My grandfather kept a brass sextant on his bookshelf. Not because he used it — GPS had long since made it obsolete — but because it was the most honest navigation tool he'd ever owned. One reading, one calculation, one position. No accumulated error, no creeping drift. You sighted a star, noted the time, and the math gave you where you were. BeatClock is that sextant. It doesn't tick. It doesn't accumulate. It sights `os.clock()` and derives everything from a single anchor.
 
-The lattice metaphor is precise: [base60-lattice](https://github.com/SuperInstance/base60-lattice) uses a 60-symbol grid for spatial coordinates, and BeatClock's 8-tick lattice is its temporal mirror. When [tensor-midi](https://github.com/SuperInstance/tensor-midi) lays a 12-pulse jazz lattice over a permutation tensor, it's doing harmonically what BeatClock does rhythmically — carving continuous time into discrete positions you can stand on. The [Navigator's Equation](https://github.com/SuperInstance/AI-Writings/tree/main/prose) runs through all of them: spatial math → tensor music → temporal grid → the beat you dance to.
+The lattice metaphor is precise: [base60-lattice](https://github.com/SuperInstance/base60-lattice) uses a 60-symbol grid for spatial coordinates, and BeatClock's 8-tick lattice is its temporal mirror. When [fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi) lays a 12-pulse jazz lattice over a permutation tensor, it's doing harmonically what BeatClock does rhythmically — carving continuous time into discrete positions you can stand on. The [Navigator's Equation](https://github.com/SuperInstance/AI-Writings/tree/main/prose) runs through all of them: spatial math → tensor music → temporal grid → the beat you dance to.
 
 > *Every beat that ever rings out falls exactly where one quiet equation said it would be, long before the sound reached your speakers.*
 >
@@ -322,7 +322,7 @@ The lattice metaphor is precise: [base60-lattice](https://github.com/SuperInstan
 
 - **If you need NPC relationships:** → [roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system) — 63 tests, bonds that evolve
 - **If you need kid-safe content filtering:** → [roblox-filtergate](https://github.com/SuperInstance/roblox-filtergate) — 90 tests, fleet-grade safety
-- **If you need tensor-based music:** → [tensor-midi](https://github.com/SuperInstance/tensor-midi) — 12-pulse jazz on a permutation tensor
+- **If you need tensor-based music:** → [fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi) — 12-pulse jazz on a permutation tensor
 - **If you need fleet comms:** → [vibe-protocol](https://github.com/SuperInstance/vibe-protocol) — vibes → signals
 - **If you need the nervous system:** → [cns-bridge](https://github.com/SuperInstance/cns-bridge) — 270 tests, Python CNS bus
 - **If you need spatial math:** → [base60-lattice](https://github.com/SuperInstance/base60-lattice) — 60-symbol lattice, BeatClock's spatial twin

@@ -52,7 +52,7 @@ The beat detection is always: **poll, floor, compare**. No events, no signals, n
 
 - [roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system) examples — NPC bonds that pulse on BeatClock's grid
 - [fleet-radio](https://github.com/SuperInstance/fleet-radio) — Fleet-wide audio needs fleet-wide timing; `syncFromServer` is the skeleton
-- [tensor-midi](https://github.com/SuperInstance/tensor-midi) — Tensor-based MIDI on a 12-pulse jazz lattice, the bebop cousin
+- [fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi) — Tensor-based MIDI on a 12-pulse jazz lattice, the bebop cousin
 - [AI-Writings: The Orchestra Thread](https://github.com/SuperInstance/AI-Writings/tree/main/prose) — Stories about the fleet's multi-model jazz ensemble
 
 ---

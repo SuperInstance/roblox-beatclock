@@ -34,11 +34,11 @@ BeatClock's documentation follows the **excavator lever principle**: a reader bu
 ## Fleet Documentation Connections
 
 - [AI-Writings](https://github.com/SuperInstance/AI-Writings/tree/main/prose) — Fleet stories and essays about the Orchestra and Navigator's Equation
-- [fleet-wiki](https://github.com/SuperInstance/fleet-wiki) — D1-backed fleet knowledge base, 700+ pages
+- [lucineer-fleet-wiki](https://github.com/SuperInstance/lucineer-fleet-wiki) — D1-backed fleet knowledge base, 700+ pages
 - [roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system) docs — The bond system integrates with BeatClock timing
 - [roblox-filtergate](https://github.com/SuperInstance/roblox-filtergate) docs — Content filtering for the same fleet
 - [cns-bridge](https://github.com/SuperInstance/cns-bridge) — Timing signals flow through the CNS bus
-- [tensor-midi](https://github.com/SuperInstance/tensor-midi) — The jazz lattice cousin
+- [fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi) — The jazz lattice cousin
 
 ---
 

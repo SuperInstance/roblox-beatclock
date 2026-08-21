@@ -65,7 +65,7 @@ Highest-resolution monotonic clock in Luau. Process-local. Not affected by NTP a
 
 ## Fleet Connections
 
-- [tensor-midi](https://github.com/SuperInstance/tensor-midi) — The 12-pulse jazz lattice. BeatClock's 8-tick grid is its straight-laced cousin.
+- [fleet-jepa-midi](https://github.com/SuperInstance/fleet-jepa-midi) — The 12-pulse jazz lattice. BeatClock's 8-tick grid is its straight-laced cousin.
 - [base60-lattice](https://github.com/SuperInstance/base60-lattice) — 60-symbol spatial lattice. BeatClock's tick lattice is its temporal mirror.
 - [cns-bridge](https://github.com/SuperInstance/cns-bridge) — The fleet's nervous system. Timing signals flow through the CNS bus.
 - [roblox-bond-system](https://github.com/SuperInstance/roblox-bond-system/src) — NPC bonds have rhythm. BeatClock provides the grid they pulse on.
